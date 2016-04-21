@@ -1,0 +1,206 @@
+# README
+#
+# 2015/9/2
+# Waheed Brown
+#
+# OLG - Overlapping Generations Game
+
+CONTENTS
+
+1. PROJECT PROPOSAL
+2. INSTALLATION INSTRUCTIONS
+3. PLAYING INSTRUCTIONS
+4. PROJECT DESCRIPTION
+5. GAME RULES
+6. GAME AI
+7. MACROECONOMIC THEORY BEHIND THE AI
+8. MICROECONOMIC THEORY BEHIND THE AI
+9. CONCLUSION
+10. CHALLENGES
+11. PROPOSED IMPROVEMENTS
+
+1. PROJECT PROPOSAL
+
+The proposed project is a game called Overlapping Generatiions, OLG. It is based
+on Professor Peter Diamond's OLG model for maximizing lifetime welfare:
+
+https://en.wikipedia.org/wiki/Overlapping_generations_model#Diamond_OLG_Model
+
+2. INSTALLATION INSTRUCTIONS
+
+- Open the tarball:
+
+  # tar xvf olg.tar.gz
+
+- Open the game folder:
+
+  # cd olg
+
+- Build the game:
+
+  # make
+
+- Start the game:
+
+  # ./olg
+
+3. PLAYING INSTRUCTIONS
+
+On execution the game will prompt for player's name. Further instructions
+will be presented as needed.
+
+4. PROJECT DESCRIPTION
+
+The proposed project is a game called Overlapping Generatiions, OLG. It is based
+on Professor Peter Diamond's OLG model for maximizing lifetime welfare:
+
+https://en.wikipedia.org/wiki/Overlapping_generations_model#Diamond_OLG_Model
+
+However the model was simplified so that there are no children, but multiple
+turns t, t = {1 ... T}. A player must either labor, consume, deposit, withdraw,
+invest or divest in each turn. The end goal is to maximize the amount of money
+consumed. This is a simplified definition of lifetime welfare. The game will
+consist of one human player and an AI player named Peter Diamond. 
+
+5. GAME RULES
+
+- Player versus computer AI, named Peter Diamond.
+- 4 Player actions per turn:
+	- labor (work), consume (leisure), deposit, withdraw, invest (rent out
+	  capital for production) or divest.
+- None of cash, savings or investments can ever go below 0 (no debt allowed).
+  This is also known as a No-Ponzi-Scheme restriction, where you cannot borrow
+  indefinitely from the future; I.E., end the game with negative assets.
+- There are T turns in a game, where t = {1 ... T}, default is 30.
+- A unit of cash is a dollar, a positive integer, default is 10.
+- Winner is the one who consumed the most by the end of the game.
+	Lifetime welfare is defined as the maximum amount of money consumed.
+- Rock-paper-scissors weighting on actions, one action per turn.
+	labor: cost = $1, payout = $2
+	consume: cost = $2, payout = $1
+	deposit: cost = $5, payout = $0, accrues 1% interest per turn
+	withdraw: cost = $0, payout = $6 (max withdraw $6 per turn)
+	invest: cost = $10, payout = $0, accrues 4% rate of return per turn
+	divest: cost = $0, payout = $15 (max divest $15 per turn)
+
+6. GAME AI                                                                                                                      
+Where t = {1 ... T}
+1. If cash is > (T - t + 1),                                                                                                 
+   then consume                                                                                                              
+2. Otherwise, if cash is >= const_invest + 1,                                                                                
+   and total_wealth <= (T - t + 1),                                                                                          
+   then invest                                                                                                               
+3. Otherwise, if investments >= (T - t + 1) - cash,                                                                          
+   and investments >= cost_divest                                                                                            
+   then divest                                                                                                               
+4. Otherwise, if cash <= (T - t + 1), then labor                                                                             
+5. Otherwise, if cash >= 2, then consume                                                                                     
+*NOTE: Always leave at least $1 in cash so you can labor.                                                                    
+
+7. MACROECONOMIC THEORY BEHIND THE AI
+
+- Maximize lifetime welfare; I.E. the amount consumed:
+	- W = Lifetime Welfare (total amount consumed)
+	- c_t = amount consumed in turn t, t = {1 ... T}
+	- T = total turns in the game
+	- NOTE: Always leave at least $1 in cash so you can labor.
+
+	max W = c_0 + c_1 + ... + c_T 
+	max W = 2*T, where consume_cost = 2
+
+	- Range of c_t
+		min c_t = 0, from depositing, withdrawing, investing or divesting
+	    	c_t = 1, from laboring
+		max c_t = 2, from consuming
+
+	- Therefore:
+		max W = (turns_remaining - cash_in_savings - cash_in_investments - 3_turns) * max c_t
+	IE
+		max W = ( (T - t) - cash_in_savings - cash_in_investments - 3 ) * 2
+
+		max W = max lifetime welfare; IE max consumed
+	
+	- Intuitively, since you can at max consume $1 per turn you never
+	  want to have more total wealth than there are turns left in the
+	  game. This is called a rational strategy.
+		
+	- Winning strategy: The optimal, rational strategy is to always
+	  keep enough total wealth equal to or lesser than the number of
+	  turns remaining.
+
+- References:
+
+  D. Romer, "Advanced Macroeconomics", (c) 2011, McGraw-Hill.
+
+8. MICROECONOMIC THEORY BEHIND THE AI
+
+- The case for working until you die:
+  
+  There are actually two ways to beat the AI. One is to make a deposit into
+  your savings account as your very first move. Then alternatively consume
+  and labor until you can make a withdrawal. After that, alternate between
+  consumption and labor until the end of the game
+
+  The second optimal, rational strategy is to alternante between consumption
+  and labor for the entire game, making no other actions.
+
+  These two strategies are known anecdotally as being a "wage slave"; I.E.,
+  working until you die. The reason why the AI does not use this strategy
+  is because of microeconomic preference relations:
+
+    consumption >~ divesting
+    divesting >~ withdrawing
+    withdrawing >~ saving
+    saving >~ investing
+    investing >~ labor
+
+    Where >~ means that "LHS (left-hand-side) is preferable over RHS".
+
+  These microeconmic preference relations are applied in the GAME RULES
+  as the Rock-paper-scissors weighting on actions. For an in-depth
+  discussion on preference relations, please consult the below reference.
+
+- References:
+
+  A. Mas-Colell, M. D. Whinston, J. R. Green, "Microeconomic Theory",
+    (c) 1995, Oxfore University Press.
+
+9. CONCLUSION
+
+  Conclusively, although the macroeconomic theory says to maximize
+  lifetime welfare, we cannot ignore player preferences. Microeconomic
+  theory (human nature) has a strong influence on player actions in the
+  real world. Most social planners and professional economists know this
+  concept as the following anecdote:
+
+    Economics is 10% mathematics and 90% human nature.
+
+    (Wayne Brown, Undersecratry of Finance, Government of Bermuda, 2014)
+
+10. CHALLENGES
+
+- Chosing the optimal interest and return rates as well as the number turns.
+  This was best resolved using numerical experimentation and data from the
+  real world. As an example, savings accounts have interest rates below 1%
+  and the Dow Jones has average annual growth of 4% over a 20 year period.
+
+- Storing game data for later analysis. Ideally an SQL database should be
+  used to allow a rich set of query options.
+
+- Lack of time to port the game to Windows, but it can be run in cygwin.
+
+11. PROPOSED IMPROVEMENTS
+
+- data.h/cpp and analystics.h/cpp libraries to allow the storing and
+  evaluation of game data. Ideally an SQL database and GRETL should be
+  used. However gnuplot is a secondary option because it can create nice
+  graphs.
+
+- Introduce economic shocks such as stock market crashes, a raise
+  (payout from labor increases) and medical advances (an increase) in the
+  number of turns.
+
+- Simple GUI with 256 color graphics and keyboard interactivity.
+
+- Online play, adding players by IP address.
+

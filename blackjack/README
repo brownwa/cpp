@@ -1,0 +1,41 @@
+# README
+#
+# 2015/1/28
+# Waheed Brown
+#
+# Final Project
+# MIT6_096IAP11_project.pdf
+
+PROJECT PROPOSAL
+
+The proposed project is Blackjack. There will only be a command line interface
+with the card suits and pips displayed as text. Maximum 5 players, including
+the bank/house. Players compete only against the bank and not each other. The
+number of cards will be a standard stack of four decks, jokers removed. Once
+the deck is emptied it will be reshuffled and stacked again.
+
+Basic AI for the bank will be to always hit if its total is smaller than 15
+or the total of the leading player, whichever is larger (and smaller or equal
+to 21).
+
+Aces always count as 11.
+
+INSTALLATION INSTRUCTIONS
+
+Run the binary titled simply "blackjack"
+
+PLAYING INSTRUCTIONS
+
+On execution the game will prompt for the number of players and then each
+player's name. Further instructions will be presented as needed.
+
+PROBLEMS
+
+CHALLENGES
+
+PROPOSED IMPROVEMENTS
+
+- Simple GUI with 256 color graphics and keyboard interactivity.
+- Bank AI for treating Aces as either 1 or 11.
+- Online play, adding players by IP address.
+
