@@ -20,9 +20,7 @@ enum pip_t {ACE_LOW = 1, TWO = 2, THREE = 3, FOUR = 4, FIVE = 5, SIX = 6,
 class Card {
 private:
   suit_t suit;
-  // (bug 11) Change pips map<int, string> to unordered_map<int, string>
   pip_t number;
-  // (bug 13) Make a Card Class Member Called faceUp so Bank Cards are hidden
   static map<pip_t, string> makePips();
   static map<suit_t, string> makeSuits();
 

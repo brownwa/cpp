@@ -62,7 +62,6 @@ const int Player::calcHand() const {
   return total;
 }
 
-// (bug 5) The game should be a singleton, not the number of players
 int Game::numGames = 0;
 
 Game::Game(const int newPlayers) {
@@ -71,7 +70,6 @@ Game::Game(const int newPlayers) {
     throw game_singleton_err();
   }
 
-  // (bug 1) Add check for number of players [1 ... 4]
   srand( time(NULL) );
   numPlayers = 0;
   playerList = new Player[newPlayers + 1 /* the bank */];
@@ -83,9 +81,6 @@ Game::~Game() {
 }
 
 void Game::addPlayer(const string playerName) {
-  // (bug 2) Add check for unique player names only
-  // (bug 3) Add check for max <= numPlayers
-
    playerList[numPlayers++].setName(playerName);
 }
 
@@ -121,12 +116,6 @@ void Game::dealCard(const int pIndex) {
   //  gameDeck.getList().pop_back();
   playerList[pIndex].hit( gameDeck.getList().at(i) );
   gameDeck.getList().erase( gameDeck.getList().begin() + i );
-
-  // TESTING LINE
-//   showTable();
-//   cout << endl;
-//   showDeck();
-//   cout << endl;
 }
 
 void Game::showTable() const {

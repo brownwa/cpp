@@ -53,8 +53,6 @@ class Game {
   void addPlayer(const string playerName);
   void showPlayers() const;
   void buildDeck();
-  // (bug 12) Shuffle the deck before dealing
-  //void shuffleDeck();
   void dealCard(const int pIndex);
   void showDeck() const { gameDeck.showDeck(); }
   void showTable() const;
