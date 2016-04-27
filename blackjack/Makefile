@@ -3,8 +3,7 @@
 # 2015/1/28
 # Waheed Brown
 #
-# Final Project
-# MIT6_096IAP11_project.pdf
+# Blackjack
 
 all:
 	g++ blackjack.cpp game.cpp cards.cpp -o blackjack

@@ -4,7 +4,7 @@
  * 2015/01/30
  * Waheed Brown
  *
- * Final Project
+ * Blackjack
  */
 
 #include <iostream>

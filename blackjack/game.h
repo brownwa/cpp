@@ -4,8 +4,7 @@
  * 2015/1/28
  * Waheed Brown
  *
- * Final Project
- * MIT6_096IAP11_project.pdf
+ * Blackjack
  */
 
 #include <map>
